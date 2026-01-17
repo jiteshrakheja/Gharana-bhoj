@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gharana Bhoj - Pure Vegetarian Restaurant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>Gharana Bhoj</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#order">Order</a></li>
+                <li><a href="#track">Track</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#about">About</a></li>
+                <li class="cart-icon" onclick="scrollToSection('order')">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Gharana Bhoj</h1>
+            <p>Authentic Indian Flavors - Pure Vegetarian Delights</p>
+            <a href="#menu" class="btn">Explore Menu</a>
+        </div>
+    </section>
+
+    <section id="menu" class="menu-section">
+        <div class="container">
+            <h2 class="section-title">Our Menu</h2>
+            <div id="menuContainer"></div>
+        </div>
+    </section>
+
+    <section id="order" class="order-section">
+        <div class="container">
+            <h2 class="section-title">Place Your Order</h2>
+            <div class="cart-items" id="cartItems">
+                <p>Your cart is empty</p>
+            </div>
+            <div class="cart-total" id="cartTotal">Total: ₹0</div>
+            <form id="orderForm">
+                <div class="form-group"><label for="name">Full Name *</label><input type="text" id="name" name="name"
+                        required></div>
+                <div class="form-group"><label for="phone">Phone Number *</label><input type="tel" id="phone"
+                        name="phone" required></div>
+                <div class="form-group"><label for="email">Email Address</label><input type="email" id="email"
+                        name="email"></div>
+                <div class="form-group"><label for="address">Delivery Address *</label><textarea id="address"
+                        name="address" rows="3" required></textarea></div>
+                <div class="form-group">
+                    <label>Payment Method *</label>
+                    <div class="payment-options">
+                        <div class="payment-option" onclick="selectPayment('card')"><i class="fas fa-credit-card"></i>
+                            <h4>Card Payment</h4>
+                        </div>
+                        <div class="payment-option" onclick="selectPayment('upi')"><i class="fas fa-mobile-alt"></i>
+                            <h4>UPI Payment</h4>
+                        </div>
+                        <div class="payment-option" onclick="selectPayment('cash')"><i
+                                class="fas fa-money-bill-wave"></i>
+                            <h4>Cash on Delivery</h4>
+                        </div>
+                    </div>
+                </div>
+                <div id="cardDetails" style="display: none;">
+                    <div class="form-group"><label for="cardNumber">Card Number</label><input type="text"
+                            id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456"></div>
+                    <div class="form-group"><label for="cardName">Cardholder Name</label><input type="text"
+                            id="cardName" name="cardName"></div>
+                    <div style="display: flex; gap: 20px;">
+                        <div class="form-group" style="flex: 1;"><label for="expiry">Expiry Date</label><input
+                                type="text" id="expiry" name="expiry" placeholder="MM/YY"></div>
+                        <div class="form-group" style="flex: 1;"><label for="cvv">CVV</label><input type="text" id="cvv"
+                                name="cvv" placeholder="123"></div>
+                    </div>
+                </div>
+                <div id="upiDetails" style="display: none;">
+                    <div class="form-group"><label for="upiId">UPI ID</label><input type="text" id="upiId" name="upiId"
+                            placeholder="yourname@upi"></div>
+                </div>
+                <input type="hidden" name="payment" id="selectedPayment" value="">
+                <button type="submit" class="btn"
+                    style="width: 100%; padding: 20px; font-size: 18px; margin-top: 20px;">Place Order</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="track" class="track-section">
+        <div class="container">
+            <h2 class="section-title">Track Your Order</h2>
+            <div class="track-form">
+                <div class="form-group"><label for="trackingPhone">Phone Number</label><input type="tel"
+                        id="trackingPhone" placeholder="Enter your phone number"></div>
+                <button class="btn" onclick="trackOrder()">Track Order</button>
+            </div>
+            <div id="trackingResult"></div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-info">
+                <div class="contact-item"><i class="fas fa-map-marker-alt"></i>
+                    <h3>Address</h3>
+                    <p>123 Food Street, Delhi 110001, India</p>
+                </div>
+                <div class="contact-item"><i class="fas fa-phone"></i>
+                    <h3>Phone</h3>
+                    <p>+91 98765 43210</p>
+                </div>
+                <div class="contact-item"><i class="fas fa-envelope"></i>
+                    <h3>Email</h3>
+                    <p>info@gharanabhoj.com</p>
+                </div>
+                <div class="contact-item"><i class="fas fa-clock"></i>
+                    <h3>Hours</h3>
+                    <p>Mon-Sun: 11:00 AM - 11:00 PM</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <div class="about-content">
+                <p>GharanaBhoj is a refined expression of India's timeless vegetarian cuisine, where heritage meets
+                    elegance. Rooted in age-old culinary traditions and elevated with a contemporary sensibility, we
+                    curate an experience that goes beyond dining—it is a celebration of culture, craftsmanship, and
+                    conscious living.</p>
+                <p>Our menu is thoughtfully crafted using the finest ingredients, aromatic spices, and authentic
+                    techniques sourced from India's rich culinary landscape. Each dish reflects the depth, balance, and
+                    sophistication of vegetarian cooking, presented with a modern aesthetic while honoring its
+                    traditional soul.</p>
+                <p>At GharanaBhoj, excellence is in every detail—from the purity of our ingredients and the precision of
+                    our flavors to the warmth of our hospitality and the serenity of our ambiance. We are committed to
+                    offering an elevated vegetarian dining experience that is indulgent yet mindful, luxurious yet
+                    deeply rooted.</p>
+                <p>Whether you join us for an intimate meal, a family gathering, or a special celebration, GharanaBhoj
+                    invites you to savor vegetarian cuisine in its most graceful and memorable form.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Gharana Bhoj. All rights reserved.</p>
+            <p>Pure Vegetarian Restaurant | Serving Love Since 2020</p>
+        </div>
+    </footer>
+
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="orderDetails"></div>
+        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
